@@ -1,15 +1,34 @@
-# Django App
+# Django Github
 
-This template should be used for Django Applications open sourced under the Surface Security context and organization.
+Ingest Github organisation and repositories data.
 
-This template contains some sample workflows, as well as a typical structure of these type of repositories, following companion documentation to help you set it up and get started.
+## Integration
+The integration utilises Github App to authenticate against Github and extends the `inventory.Integration` model with Github specific fields such as `app_id`, `app_installation_id` and `organisation`. 
 
-# Usage
+## Actions
+The following Integration actions are available in this application:
+- `Users` - Ingests organisation users and teams;
+- `Repositories` - Ingests organisation repositories;
+- `Codeowners` - Extracts repository owners managed in [CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners) file;
+- `Findings` - Ingests Github Advance Security vulnerabilities.
 
-READMEs should have extensive and detailed descriptions of how the app should be used, ideally followed with screenshots and/or videos demonstrating the purpose of the app and or service offered.
+## Commands
+> ./manage.py github_organisation_resync
+> ./manage.py github_repositories_resync
 
-This section should cover everything related to **the end user**, from installing, to descriminate configuration variables users can tweak (if applicable).
+## Usage
+Add `django_github` to `INSTALLED_APPS` in your `settings.py`.
 
-# Contributing
+To adjust the django application dependencies add the following in settings and modify per project's needs:
+```
+DJANGO_GITHUB_MIGRATIONS_DEPENDENCIES = {
+    '0001_initial': [
+        ('inventory', '0001_initial'),
+    ]
+}
+```
 
-READMEs should also provide instructions on how to contribute. How to install a development environment, how to run tests, and so on.
+The default migration dependency is:
+```
+('inventory', '0001_initial'),
+```

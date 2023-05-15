@@ -4,9 +4,9 @@
 
 name: publish
 
-on: workflow_dispatch
-  # release:
-  #   types: [created]
+on:
+  release:
+    types: [created]
 
 jobs:
   deploy:

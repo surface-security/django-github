@@ -341,7 +341,7 @@ class Command(BaseCommand):
                 'wont_fix': inv_models.Finding.State.OPEN,
                 'revoked': inv_models.Finding.State.RESOLVED,
                 'used_in_tests': inv_models.Finding.State.CLOSED,
-                'pattern_edited': inv_models.Finding.State.CLOSED
+                'pattern_edited': inv_models.Finding.State.CLOSED,
             },
         }
 

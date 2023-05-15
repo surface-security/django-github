@@ -1,8 +1,79 @@
-# For new projects, consider using pyproject instead of the classic setup.py and setup.cfg - for the simple reason 
-# maintaining one file is better than many more.
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
 
-# Some relevant notes:
-# - Use version 0.0.1 for your first version for consistency. Versions should follow semantic versioning.
-# - Set develop as the default branch of the repo and submit PRs there.
-# - When ready to deploy a new version, merge changes in main, create a new tag and the workflows should take care of publishing things for you.
-# - Dependency-wise, try to cover as many versions as possible.
+[project]
+name = "django-github"
+dynamic = ["version"]
+authors = [
+    {name = "Bogdan Oniga", email = "bogdan@oniga.me"},
+]
+description = "Ingest Github organisation and repositories data"
+readme = "README.md"
+requires-python = ">=3.7"
+keywords = ["django", "github"]
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Framework :: Django",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Environment :: Web Environment",
+    "Topic :: Software Development",
+]
+dependencies = [
+    "Django >= 3.1, < 4.0",
+    "django-fernet-fields == 0.6",
+    "PyJWT == 2.6.0",
+    "requests == 2.26.0"
+]
+
+[tool.setuptools.dynamic]
+version = {attr = "django_github.__version__"}
+
+[tool.setuptools]
+packages = ["django_github"]
+
+[project.optional-dependencies]
+dev = ["black==23.1.0", "ruff==0.0.256"]
+
+[tool.black]
+line-length = 120
+skip-string-normalization = true
+target-version = ['py39']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | \.venv3
+  | _build
+  | buck-out
+  | build
+  | dist
+  | migrations
+)/
+'''
+
+[tool.ruff]
+exclude = [
+    '.git',
+    '__pycache__',
+    'venv',
+    'venv3',
+]
+ignore = []
+line-length = 120
+select = [
+    'E',
+    'F',
+    'W',
+    "I001",
+]
+src = ['django_github']
